@@ -9,7 +9,7 @@
 let foo: 'Hello';
 ```
 
-ここでは`foo`という名前の変数を作成しました。それに代入されるリテラル値は`Hello`のみを許可します。これは以下のとおりです：
+ここでは`foo`という名前の変数を作成しました。それに代入されるリテラル値は`'Hello'`のみを許可します。これは以下のとおりです：
 
 ```ts
 let foo: 'Hello';
@@ -20,7 +20,7 @@ foo = 'Bar'; // Error: "Bar" is not assignable to type "Hello"
 
 ```ts
 type CardinalDirection =
-    "North"
+    | "North"
     | "East"
     | "South"
     | "West";
@@ -44,7 +44,7 @@ type Bools = true | false;
 ### 推論
 かなり一般的に`Type string is not assignable to type "foo"`というエラーを受け取ります。次の例はこれを示しています。
 
-```js
+```ts
 function iTakeFoo(foo: 'foo') { }
 const test = {
   someProp: 'foo'
@@ -54,11 +54,24 @@ iTakeFoo(test.someProp); // Error: Argument of type string is not assignable to 
 
 これは、`test`が`{someProp: string} `型であると推定されるためです。この問題を解決するには、シンプルな型アサーションを使用して、TypeScriptに以下のようにリテラルを推測させます。
 
-```js
+```ts
 function iTakeFoo(foo: 'foo') { }
 const test = {
   someProp: 'foo' as 'foo'
 };
+iTakeFoo(test.someProp); // Okay!
+```
+
+あるいは、型アノテーションを使うことで、宣言した時点でTypeScriptが正しい型を推論するのを助けることができます。
+
+```ts
+function iTakeFoo(foo: 'foo') { }
+type Test = {
+  someProp: 'foo',
+}
+const test: Test = { // Annotate - inferred someProp is always === 'foo'
+  someProp: 'foo' 
+}; 
 iTakeFoo(test.someProp); // Okay!
 ```
 

@@ -99,11 +99,27 @@ function doStuff(q: A | B) {
 
 ### リテラル型のType Guard
 
-あなたがユニオン型にリテラル型を持っているとき、それらをチェックして区別することができます。
+異なるリテラル値を区別するには、`===` / `==` / `!==` / `!=` が利用できます。
+
+```ts
+type TriState = 'yes' | 'no' | 'unknown';
+
+function logOutState(state:TriState) {
+  if (state == 'yes') {
+    console.log('User selected yes');
+  } else if (state == 'no') {
+    console.log('User selected no');
+  } else {
+    console.log('User has not made a selection yet');
+  }
+}
+```
+
+ユニオン型の中にリテラル型がある場合にも同じ方法が使えます。次のように共通するプロパティの値をチェックすることで、異なるユニオン型を区別できます。
 
 ```ts
 type Foo = {
-  kind: 'foo', // Literal type 
+  kind: 'foo', // Literal type
   foo: number
 }
 type Bar = {
@@ -120,6 +136,18 @@ function doStuff(arg: Foo | Bar) {
         console.log(arg.foo); // Error!
         console.log(arg.bar); // OK
     }
+}
+```
+
+### `strictNullChecks`を使用したnullとundefinedのチェック
+
+TypeScriptは十分賢いので、次のように`== null` / `!= null`チェックをすることで`null`と`undefined`の両方を排除できます。
+
+```ts
+function foo(a?: number | null) {
+  if (a == null) return;
+
+  // a is number now.
 }
 ```
 
@@ -163,4 +191,38 @@ function doStuff(arg: Foo | Bar) {
 
 doStuff({ foo: 123, common: '123' });
 doStuff({ bar: 123, common: '123' });
+```
+
+### Type Guardsとコールバック
+
+TypeScript doesn't assume type guards remain active in callbacks as making this assumption is dangerous. e.g.
+
+```ts
+// Example Setup
+declare var foo:{bar?: {baz: string}};
+function immediate(callback: ()=>void) {
+  callback();
+}
+
+
+// Type Guard
+if (foo.bar) {
+  console.log(foo.bar.baz); // Okay
+  functionDoingSomeStuff(() => {
+    console.log(foo.bar.baz); // TS error: Object is possibly 'undefined'"
+  });
+}
+```
+
+The fix is as easy as storing the inferred safe value in a local variable, automatically ensuring it doesn't get changed externally, and TypeScript can easily understand that:
+
+```js
+// Type Guard
+if (foo.bar) {
+  console.log(foo.bar.baz); // Okay
+  const bar = foo.bar;
+  functionDoingSomeStuff(() => {
+    console.log(bar.baz); // Okay
+  });
+}
 ```

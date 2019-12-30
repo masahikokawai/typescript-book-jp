@@ -143,9 +143,93 @@ function area(s: Shape) {
 }
 ```
 
+### 網羅チェックの中で例外を投げる
+
+引数として`never`を取る関数を書くことができます(したがって、この関数は`never`として推論された変数で呼ばれた場合にのみ呼ばれます)。そして、次のように、関数の本体が実行された場合に例外を投げるように書きます。
+
+```ts
+function assertNever(x:never): never {
+    throw new Error('Unexpected value. Should have been never.');
+}
+```
+
+以下に、`area`関数とともに使用する例を示します。
+
+```ts
+interface Square {
+    kind: "square";
+    size: number;
+}
+interface Rectangle {
+    kind: "rectangle";
+    width: number;
+    height: number;
+}
+type Shape = Square | Rectangle;
+
+function area(s: Shape) {
+    switch (s.kind) {
+        case "square": return s.size * s.size;
+        case "rectangle": return s.width * s.height;
+		// If a new case is added at compile time you will get a compile error
+		// If a new value appears at runtime you will get a runtime error
+        default: return assertNever(s);
+    }
+}
+```
+
+### Retrospective Versioning
+
+次のような形のデータ構造があるとします。
+
+```ts
+type DTO = {
+  name: string
+}
+```
+
+そして、`DTO`をさまざまな場所で使用した後に、`name`という名前は良くない選択だったことに気が付いたとします。このような場合には、*リテラルの数値*(または望むなら文字列)を追加したDTOの新しい*ユニオン型*を定義することで、後から型にバージョニングを追加することができます。*strictNullChecks*を有効にしていれば、バージョン0を`undefined`とマークするだけで、そのバージョンの型が使われているかどうかのチェックを自動的に行えます。
+
+```ts
+type DTO = 
+| { 
+   version: undefined, // version 0
+   name: string,
+ }
+| {
+   version: 1,
+   firstName: string,
+   lastName: string, 
+}
+// Even later 
+| {
+    version: 2,
+    firstName: string,
+    middleName: string,
+    lastName: string, 
+} 
+// So on
+```
+
+このように定義したDTOは、次のように利用します。
+
+```ts
+function printDTO(dto:DTO) {
+  if (dto.version == null) {
+      console.log(dto.name);
+  } else if (dto.version == 1) {
+      console.log(dto.firstName,dto.lastName);
+  } else if (dto.version == 2) {
+      console.log(dto.firstName, dto.middleName, dto.lastName);
+  } else {
+      const _exhaustiveCheck: never = dto;
+  }
+}
+```
+
 ### Redux
 
-これを活用しているポピュラーなライブラリはreduxです。
+ユニオン判別を活用しているポピュラーなライブラリはreduxです。
 
 ここに、TypeScript型アノテーションを追加した [*gist of redux*](https://github.com/reactjs/redux#the-gist) があります：
 
@@ -189,7 +273,7 @@ let store = createStore(counter)
 
 // You can use subscribe() to update the UI in response to state changes.
 // Normally you'd use a view binding library (e.g. React Redux) rather than subscribe() directly.
-// However it can also be handy to persist the current state in the localStorage.
+// However, it can also be handy to persist the current state in the localStorage.
 
 store.subscribe(() =>
   console.log(store.getState())

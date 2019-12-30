@@ -140,3 +140,25 @@ padding(1,1,1); // Error: Not a part of the available overloads
 
 > TypeScriptの関数オーバーロードにランタイムでのオーバーヘッドはありません。関数が呼び出されると予想される方法を文書化し、コンパイラがコードの残りの部分をチェックするだけです。
 
+### 関数の宣言
+
+> 簡単なヒント: *型の定義*とは、既存の実装に対してあなたが型をどのように書くかということです。
+
+具体的な実装を示さずに関数の型を*宣言する*方法には、2つの方法があります。以下に例を示します。
+
+```ts
+type LongHand = {
+    (a: number): number;
+};
+
+type ShortHand = (a: number) => number;
+```
+
+上の2つの例は*完全に*同じ宣言です。違いがあるのは、関数のオーバーロードを行おうとする場合です。前者の長い書き方の宣言で定義したときのみ、以下のようにオーバーロードを追加できます。
+
+```ts
+type LongHandAllowsOverloadDeclarations = {
+    (a: number): number;
+    (a: string): string;
+};
+```
