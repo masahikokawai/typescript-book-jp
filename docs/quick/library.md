@@ -1,6 +1,6 @@
 ## TypeScriptのnode moduleを作成する
 
-* [Typecriptのnodemoduleの作成に関するレッスン](https://egghead.io/lessons/typescript-create-high-quality-npm-packages-using-typescript)
+* [TypeScriptのnode moduleの作成に関するレッスン](https://egghead.io/lessons/typescript-create-high-quality-npm-packages-using-typescript)
 
 TypeScriptで書かれたモジュールを使用することは、コンパイル時の安全性とオートコンプリートが得られるので、非常に楽しいことです。
 
@@ -45,7 +45,7 @@ package
 
 #### devDependencies
 
-* パッケージの開発中にのみ他のパッケージに依存している場合(例: `prettier`)、依存するパッケージは`devDependency`に追加します。こうすることで、あなたのパッケージを使用するユーザーの`node_modules`には開発用の依存パッケージをインストールしないようにできます(`npm i foo`というコマンドを実行した場合には、`foo`のdevDependencies`はインストールされないためです)。
+* パッケージの開発中にのみ他のパッケージに依存している場合(例: `prettier`)、依存するパッケージは`devDependency`に追加します。こうすることで、あなたのパッケージを使用するユーザーの`node_modules`には開発用の依存パッケージをインストールしないようにできます(`npm i foo`というコマンドを実行した場合には、`foo`の`devDependencies`はインストールされないためです)。
 *`typescript`は通常パッケージのビルド時にのみ使用されるため、`devDependency`に追加します。パッケージのユーザーはTypeScriptなしでもあなたのパッケージを利用できます。
 * あなたのパッケージがJavaScriptで作られた他のパッケージに依存していて、あなたのプロジェクトでは型安全性を活用したい場合には、依存しているパッケージの型パッケージ(例: `@types/foo`)を`devDependencies`に追加してください。JavaScriptの型は、メインのNPMエコシステムの*外側で*管理されています。JavaScriptエコシステムでは、セマンティックバージョニングを使用していない場合には特に、型が破壊されるのは日常茶飯事です。そのため、ユーザーが型を使用したい場合には、自分でパッケージに適したバージョンの型`@types/foo`をインストールする必要があります。型パッケージをインストールするようにユーザーに支持したい場合には、次のセクションに示すように、パッケージを`peerDependencies`に追加します。
 
