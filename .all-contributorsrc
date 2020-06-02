@@ -1,5 +1,5 @@
 {
-  "projectName": "typescript-book",
+  "projectName": "typescript-book-jp",
   "projectOwner": "yohamta",
   "repoType": "github",
   "repoHost": "https://github.com",
@@ -7,11 +7,12 @@
     "README.md"
   ],
   "imageSize": 100,
-  "commit": false,
+  "commit": true,
+  "commitConvention": "eslint",
   "contributors": [
     {
       "login": "DotaKobayashi",
-      "name": "DotaKobayashi",
+      "name": "Dota Kobayashi",
       "avatar_url": "https://avatars3.githubusercontent.com/u/1092564?v=4",
       "profile": "https://github.com/DotaKobayashi",
       "contributions": [
@@ -50,15 +51,6 @@
       "name": "kazuau",
       "avatar_url": "https://avatars1.githubusercontent.com/u/3702151?v=4",
       "profile": "https://github.com/kazuau",
-      "contributions": [
-        "doc"
-      ]
-    },
-    {
-      "login": "yam-net",
-      "name": "hello",
-      "avatar_url": "https://avatars3.githubusercontent.com/u/22269397?v=4",
-      "profile": "https://github.com/yam-net",
       "contributions": [
         "doc"
       ]
@@ -110,7 +102,7 @@
     },
     {
       "login": "tmitz",
-      "name": "Tomohiro MITSUMUNE",
+      "name": "tmitz",
       "avatar_url": "https://avatars3.githubusercontent.com/u/28998?v=4",
       "profile": "http://mononofu.hatenablog.com/",
       "contributions": [
@@ -121,7 +113,7 @@
       "login": "shuuji3",
       "name": "TAKAHASHI Shuuji",
       "avatar_url": "https://avatars0.githubusercontent.com/u/1425259?v=4",
-      "profile": "https://shuuji3.github.io/",
+      "profile": "https://shuuji3.xyz",
       "contributions": [
         "doc"
       ]
@@ -146,18 +138,9 @@
     },
     {
       "login": "kg0r0",
-      "name": "kg0r0",
+      "name": "56",
       "avatar_url": "https://avatars0.githubusercontent.com/u/33596117?v=4",
       "profile": "https://github.com/kg0r0",
-      "contributions": [
-        "doc"
-      ]
-    },
-    {
-      "login": "YusukeSabi",
-      "name": "Kyusu Kegani",
-      "avatar_url": "https://avatars1.githubusercontent.com/u/7877932?v=4",
-      "profile": "https://github.com/YusukeSabi",
       "contributions": [
         "doc"
       ]
@@ -175,7 +158,7 @@
       "login": "y-temp4",
       "name": "Yuki Terashima",
       "avatar_url": "https://avatars0.githubusercontent.com/u/13657589?v=4",
-      "profile": "https://blog.y-temp4.com",
+      "profile": "https://y-temp4.com",
       "contributions": [
         "doc"
       ]
@@ -287,15 +270,7 @@
       "contributions": [
         "doc"
       ]
-    },
-    {
-      "login": "KisaragiEffective",
-      "name": "KisaragiEffective",
-      "avatar_url": "https://avatars1.githubusercontent.com/u/48310258?v=4",
-      "profile": "http://kisaragieffective.github.io",
-      "contributions": [
-        "doc"
-      ]
     }
-  ]
+  ],
+  "contributorsPerLine": 7
 }
