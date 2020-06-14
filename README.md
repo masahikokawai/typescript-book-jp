@@ -1,6 +1,7 @@
-# TypeScript Deep Dive 日本語版について
-
-[![All Contributors](https://img.shields.io/badge/all_contributors-29-orange.svg?style=flat-square)](./#contributors-) 
+# はじめに
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-29-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 これは[TypeScript Deep Dive](https://basarat.gitbooks.io/typescript/)の日本語版です。オリジナルの作者[basarat](https://github.com/basarat)に心より感謝を捧げます。
 
